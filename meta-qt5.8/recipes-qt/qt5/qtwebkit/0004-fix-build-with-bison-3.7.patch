@@ -1,0 +1,62 @@
+--- a/Source/WebCore/DerivedSources.pri
++++ b/Source/WebCore/DerivedSources.pri
+@@ -987,7 +987,7 @@ GENERATORS += pluginsresources
+ # GENERATOR 11: XPATH grammar
+ xpathbison.output = ${QMAKE_FILE_BASE}.cpp
+ xpathbison.input = XPATHBISON
+-xpathbison.commands = bison -d -p xpathyy ${QMAKE_FILE_NAME} -o ${QMAKE_FUNC_FILE_OUT_PATH}/${QMAKE_FILE_BASE}.tab.c && $(MOVE) ${QMAKE_FUNC_FILE_OUT_PATH}$${QMAKE_DIR_SEP}${QMAKE_FILE_BASE}.tab.c ${QMAKE_FUNC_FILE_OUT_PATH}$${QMAKE_DIR_SEP}${QMAKE_FILE_BASE}.cpp && $(MOVE) ${QMAKE_FUNC_FILE_OUT_PATH}$${QMAKE_DIR_SEP}${QMAKE_FILE_BASE}.tab.h ${QMAKE_FUNC_FILE_OUT_PATH}$${QMAKE_DIR_SEP}${QMAKE_FILE_BASE}.h
++xpathbison.commands = bison -d -p xpathyy ${QMAKE_FILE_NAME} -o ${QMAKE_FUNC_FILE_OUT_PATH}/${QMAKE_FILE_BASE}.tab.c && $(MOVE) ${QMAKE_FUNC_FILE_OUT_PATH}$${QMAKE_DIR_SEP}${QMAKE_FILE_BASE}.tab.c ${QMAKE_FUNC_FILE_OUT_PATH}$${QMAKE_DIR_SEP}${QMAKE_FILE_BASE}.cpp && $(COPY) ${QMAKE_FUNC_FILE_OUT_PATH}$${QMAKE_DIR_SEP}${QMAKE_FILE_BASE}.tab.h ${QMAKE_FUNC_FILE_OUT_PATH}$${QMAKE_DIR_SEP}${QMAKE_FILE_BASE}.h
+ xpathbison.depends = ${QMAKE_FILE_NAME}
+ GENERATORS += xpathbison
+ 
+--- a/Source/WebCore/css/CSSGrammar.y.in
++++ b/Source/WebCore/css/CSSGrammar.y.in
+@@ -21,7 +21,7 @@
+  *
+  */
+ 
+-%pure_parser
++%define api.pure
+ 
+ %parse-param { CSSParser* parser }
+ %lex-param { CSSParser* parser }
+--- a/Source/WebCore/xml/XPathGrammar.y
++++ b/Source/WebCore/xml/XPathGrammar.y
+@@ -51,7 +51,7 @@ using namespace XPath;
+ 
+ %}
+ 
+-%pure_parser
++%define api.pure
+ %parse-param { WebCore::XPath::Parser* parser }
+ 
+ %union
+diff --git a/Source/WebCore/css/makegrammar.pl b/Source/WebCore/css/makegrammar.pl
+index 4e0452ed8..03a04b25a 100644
+--- a/Source/WebCore/css/makegrammar.pl
++++ b/Source/WebCore/css/makegrammar.pl
+@@ -73,23 +73,4 @@ if ($suffix eq ".y.in") {
+ }
+ 
+ my $fileBase = File::Spec->join($outputDir, $filename);
+-system("$bison -d -p $symbolsPrefix $grammarFilePath -o $fileBase.cpp");
+-
+-open HEADER, ">$fileBase.h" or die;
+-print HEADER << "EOF";
+-#ifndef CSSGRAMMAR_H
+-#define CSSGRAMMAR_H
+-EOF
+-
+-open HPP, "<$fileBase.cpp.h" or open HPP, "<$fileBase.hpp" or die;
+-while (<HPP>) {
+-    print HEADER;
+-}
+-close HPP;
+-
+-print HEADER "#endif\n";
+-close HEADER;
+-
+-unlink("$fileBase.cpp.h");
+-unlink("$fileBase.hpp");
+-
++system("$bison -d -p $symbolsPrefix $grammarFilePath -o $fileBase.cpp;$bison --defines=$fileBase.h -p $symbolsPrefix $grammarFilePath -o $fileBase.cpp");

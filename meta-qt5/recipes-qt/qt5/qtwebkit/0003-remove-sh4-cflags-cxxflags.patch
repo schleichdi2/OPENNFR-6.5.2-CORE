@@ -1,0 +1,39 @@
+--- a/Source/JavaScriptCore/Target.pri
++++ b/Source/JavaScriptCore/Target.pri
+@@ -357,8 +357,3 @@ build?(qttestsupport) {
+ }
+ 
+ HEADERS += $$files(*.h, true)
+-
+-*sh4* {
+-    QMAKE_CXXFLAGS += -mieee -w
+-    QMAKE_CFLAGS   += -mieee -w
+-}
+--- a/Source/WTF/WTF.pro
++++ b/Source/WTF/WTF.pro
+@@ -269,11 +269,6 @@ use?(wchar_unicode): SOURCES += wtf/unicode/wchar/UnicodeWchar.cpp
+ QT += core
+ QT -= gui
+ 
+-*sh4* {
+-    QMAKE_CXXFLAGS += -mieee -w
+-    QMAKE_CFLAGS   += -mieee -w
+-}
+-
+ *-g++*:lessThan(QT_GCC_MAJOR_VERSION, 5):lessThan(QT_GCC_MINOR_VERSION, 6) {
+     # For GCC 4.5 and before we disable C++0x mode in JSC for if enabled in Qt's mkspec
+     QMAKE_CXXFLAGS -= -std=c++0x -std=gnu++0x -std=c++11 -std=gnu++11
+--- a/Source/autotools/SetupCompilerFlags.m4
++++ b/Source/autotools/SetupCompilerFlags.m4
+@@ -15,11 +15,6 @@ if test "$CXX" = "clang++"; then
+     CXXFLAGS="$CXXFLAGS -stdlib=libstdc++ -Wno-c++11-extensions -Qunused-arguments"
+ fi
+ 
+-if test "$host_cpu" = "sh4"; then
+-    CXXFLAGS="$CXXFLAGS -mieee -w"
+-    CFLAGS="$CFLAGS -mieee -w"
+-fi
+-
+ # Add '-g' flag to gcc to build with debug symbols.
+ if test "$enable_debug_symbols" = "min"; then
+     CXXFLAGS="$CXXFLAGS -g1"

@@ -1,0 +1,11 @@
+--- a/configure
++++ b/configure
+@@ -357,7 +357,7 @@ parser.add_option('--with-arm-fpu',
+ parser.add_option('--with-mips-arch-variant',
+     action='store',
+     dest='mips_arch_variant',
+-    default='r2',
++    default='r1',
+     choices=valid_mips_arch,
+     help='MIPS arch variant ({0}) [default: %default]'.format(
+         ', '.join(valid_mips_arch)))

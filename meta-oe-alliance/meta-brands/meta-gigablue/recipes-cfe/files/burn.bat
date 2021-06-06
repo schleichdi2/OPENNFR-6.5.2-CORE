@@ -1,0 +1,5 @@
+flash -noheader usbdisk0:gigablue/solo/kernel.bin flash0.kernel 
+flash -noheader usbdisk0:gigablue/solo/rootfs.bin flash0.rootfs 
+flash -noheader usbdisk0:gigablue/solo/imageversion flash0.splash 
+setenv -p STARTUP "boot -z -elf flash0.kernel: 'rootfstype=jffs2 bmem=106M@150M root=/dev/mtdblock6 rw '"
+
