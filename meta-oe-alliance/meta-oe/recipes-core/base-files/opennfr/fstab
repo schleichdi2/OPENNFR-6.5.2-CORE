@@ -1,0 +1,11 @@
+@rootfs@		/		auto		defaults				1  1
+proc			/proc		proc		defaults				0  0
+devpts			/dev/pts	devpts		mode=0620,gid=5				0  0
+usbdevfs		/proc/bus/usb	usbdevfs	noauto					0  0
+tmpfs			/var/volatile	tmpfs		defaults				0  0
+
+UUID=64621255-094f-485c-b994-4505576fa866	/media/hdd	auto	defaults	1	1
+UUID=178b4268-ee9e-4b98-90c7-70b3360be32e	/media/usb	auto	defaults	1	1
+UUID=7cc0218c-de50-4893-8b59-0d7e007faaa7	/media/hdd	auto	defaults	1	1
+
+/dev/mmcblk0p10 none swap defaults 0 0

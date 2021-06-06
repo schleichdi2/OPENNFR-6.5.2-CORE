@@ -1,6 +1,5 @@
 
 PACKAGES += " \
-            ${@bb.utils.contains("DISTRO_FEATURES", "appletalk", "packagegroup-base-appletalk", "", d)} \
             ${@bb.utils.contains("DISTRO_FEATURES", "smbfs", "packagegroup-base-smbfs-client", "", d)} \
             ${@bb.utils.contains("DISTRO_FEATURES", "smbfs", "packagegroup-base-smbfs-server", "", d)} \
             ${@bb.utils.contains("DISTRO_FEATURES", "smbfs", "packagegroup-base-smbfs-utils", "", d)} \
@@ -33,14 +32,6 @@ RRECOMMENDS_packagegroup-base-samba = "\
     packagegroup-base-smbfs-server \
     packagegroup-base-smbfs-utils \
     "
-
-RRECOMMENDS_packagegroup-base-appletalk = "\
-    kernel-module-appletalk \
-    kernel-module-llc \
-    kernel-module-psnap"
-
-RDEPENDS_packagegroup-base-appletalk = "\
-    netatalk"
 
 RDEPENDS_packagegroup-base-nfs += "\
     nfs-utils \

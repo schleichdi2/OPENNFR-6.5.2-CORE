@@ -1,13 +1,7 @@
 SUMMARY = "Enigma2 is an experimental, but useful framebuffer-based frontend for DVB functions"
 MAINTAINER = "OE-Alliance"
 LICENSE = "GPLv2"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=751419260aa954499f7abaabaa882bbe"
-LIC_FILES_CHKSUM_teamblue = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
-LIC_FILES_CHKSUM_openatv = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
-LIC_FILES_CHKSUM_openvix = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
-LIC_FILES_CHKSUM_beyonwiz = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
-LIC_FILES_CHKSUM_openeight = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
-LIC_FILES_CHKSUM_opendroid = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
+LIC_FILES_CHKSUM_opennfr = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
 DEPENDS = " \
     freetype \
@@ -186,24 +180,13 @@ RDEPENDS_enigma2-plugin-systemplugins-hotplug = "hotplug-e2-helper"
 RDEPENDS_enigma2-plugin-systemplugins-fsblupdater = "${PYTHON_PN}-distutils"
 DESCRIPTION_enigma2-plugin-font-wqy-microhei = "Font wqy-microhei add support for China EPG"
 
-inherit autotools-brokensep gitpkgv pkgconfig ${PYTHON_PN}native upx-compress
+inherit autotools-brokensep gitpkgv pkgconfig ${PYTHON_PN}native ${@bb.utils.contains("PYTHON_PN", "python3", "python3targetconfig", "", d)} upx-compress
 
 PV = "${IMAGE_VERSION}+git${SRCPV}"
 PKGV = "${IMAGE_VERSION}+git${GITPKGV}"
 
 SRC_URI = "${ENIGMA2_URI}"
 
-SRC_URI_append_u42 = " \
-    file://enigma2-dinobotplayer.patch \
-    "
-
-SRC_URI_append_sh4 = " \
-    ${@bb.utils.contains("DISTRO_NAME", "openspa", "file://sh4-define-DTV_ENUM_DELSYS.patch" , "", d)} \
-    "
-
-SRC_URI_append_vuduo = " \
-    file://duo_VFD.patch \
-    "
 
 S = "${WORKDIR}/git"
 
@@ -264,7 +247,7 @@ FILES_${PN}-dbg += "\
     "
 
 FILES_${PN} += " \
-    ${bindir} ${sysconfdir}/e2-git.log /usr/lib"
+    ${bindir}  /usr/lib"
 
 # Save po files
 PACKAGES =+ "${PN}-po"
@@ -274,9 +257,6 @@ do_install_append() {
     install -d ${D}/usr/share/keymaps
     ln -s ${libdir}/enigma2/python/Tools/StbHardware.py ${D}${libdir}/enigma2/python/Tools/DreamboxHardware.py
     ln -s ${libdir}/enigma2/python/Components/PackageInfo.py ${D}${libdir}/enigma2/python/Components/DreamboxInfoHandler.py
-    install -d ${D}${sysconfdir}
-    git --git-dir=${S}/.git log --no-merges --since=10.weeks --pretty=format:"%s" > ${D}${sysconfdir}/e2-git.log
-    git --git-dir=${OE-ALLIANCE_BASE}/.git log --no-merges --since=10.weeks --pretty=format:"%s" > ${D}${sysconfdir}/oe-git.log
     if [ "${base_libdir}" = "/lib64" ] ; then
         install -d ${D}/usr/lib
         ln -s ${libdir}/enigma2 ${D}/usr/lib/enigma2

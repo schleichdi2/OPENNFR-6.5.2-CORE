@@ -18,6 +18,7 @@ PR = "r3"
 
 SRC_URI = "${ENIGMA2_PLUGINS_URI} file://pluginnotwanted.patch"
 SRC_URI_append_openatv = " file://EPGSearch.patch"
+SRC_URI_append_opennfr = " file://EPGSearch.patch"
 
 EXTRA_OECONF = " \
     BUILD_SYS=${BUILD_SYS} \
@@ -66,6 +67,7 @@ DEPENDS = "enigma2 \
     ${PYTHON_PN}-httplib2 \
     ${PYTHON_PN}-youtube-dl \
     ${PYTHON_PN}-six-native \
+    ${PYTHON_PN}-beautifulsoup4 \
     dvdbackup \
     libav \
     libshowiframe \

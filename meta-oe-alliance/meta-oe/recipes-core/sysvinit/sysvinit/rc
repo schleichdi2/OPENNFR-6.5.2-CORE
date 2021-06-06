@@ -37,6 +37,10 @@ startup_progress() {
         displayvfd -s 18 -t "Booting $progress"
     elif [ $progress -gt 0 -a -e /dev/mcu ]; then
         echo $(($progress / 2)) > /dev/mcu
+    elif [ $progress -gt 0 -a -e /dev/dbox/oled0 ]; then
+        echo .$(($progress / 2))    % > /dev/dbox/oled0	
+    elif [ $progress -gt 0 -a -e /dev/oled0 ]; then
+        echo $(($progress / 2)) > /dev/oled0
     fi
 }
 
