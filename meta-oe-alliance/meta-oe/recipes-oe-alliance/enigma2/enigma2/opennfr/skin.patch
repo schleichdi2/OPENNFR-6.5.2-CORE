@@ -1,0 +1,12 @@
+--- a/skin.py
++++ b/skin.py
+@@ -1170,7 +1170,7 @@
+ 		screen.additionalWidgets.append(w)
+ 
+ 	def process_screen(widget, context):
+-		for w in widget:
++		for w in widget.getchildren():
+ 			conditional = w.attrib.get('conditional')
+ 			if conditional and not [i for i in conditional.split(",") if i in screen.keys()]:
+ 				continue
+

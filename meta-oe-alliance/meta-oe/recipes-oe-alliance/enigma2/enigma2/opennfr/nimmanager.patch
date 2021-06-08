@@ -1,0 +1,29 @@
+--- a/lib/python/Components/NimManager.py
++++ b/lib/python/Components/NimManager.py
+@@ -1668,10 +1668,10 @@
+ 	root = doc.getroot()
+ 
+ 	entry = root.find("lnb")
+-	for manufacturer in entry:
++	for manufacturer in entry.getchildren():
+ 		m={}
+ 		m_update = m.update
+-		for product in manufacturer:
++		for product in manufacturer.getchildren():
+ 			p={}												#new dict empty for new product
+ 			p_update = p.update
+ 			scr=[]
+@@ -1716,10 +1716,10 @@
+ 		unicablelnbproducts.update({manufacturer.get("name"):m})
+ 
+ 	entry = root.find("matrix")
+-	for manufacturer in entry:
++	for manufacturer in entry.getchildren():
+ 		m={}
+ 		m_update = m.update
+-		for product in manufacturer:
++		for product in manufacturer.getchildren():
+ 			p={}												#new dict empty for new product
+ 			p_update = p.update
+ 			scr=[]
+
