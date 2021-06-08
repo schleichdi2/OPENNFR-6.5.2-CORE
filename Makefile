@@ -1169,8 +1169,6 @@ $(TOPDIR)/conf/local.conf: $(DEPDIR)/.local.conf.$(LOCAL_CONF_HASH)
 	@echo 'TOPDIR = "$(TOPDIR)"' > $@
 	@echo 'MACHINE = "$(MACHINE)"' >> $@	
 	@echo 'require $(TOPDIR)/conf/$(DISTRO).conf' >> $@
-	@echo 'FEED_NAME = "opennfr-dev"' >> $@
-	@echo 'DISTRO_HOST = "mybuildpc.local"' >> $@
 
 $(TOPDIR)/conf/site.conf: $(CURDIR)/site.conf
 	@ln -s ../../../../../site.conf $@
