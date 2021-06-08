@@ -185,7 +185,10 @@ inherit autotools-brokensep gitpkgv pkgconfig ${PYTHON_PN}native upx-compress
 PV = "${IMAGE_VERSION}+git${SRCPV}"
 PKGV = "${IMAGE_VERSION}+git${GITPKGV}"
 
-SRC_URI = "${ENIGMA2_URI}"
+SRC_URI = "${ENIGMA2_URI} \
+	file://nimmanager.patch \
+	file://skin.patch \
+"
 
 
 S = "${WORKDIR}/git"
