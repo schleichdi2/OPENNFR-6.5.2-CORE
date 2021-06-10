@@ -3,15 +3,16 @@ AUTHOR = "Maroš Ondrášek <mx3ldev@gmail.com>"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
-PV = "1"
+PV = "19"
 
 RDEPENDS_${PN} += "virtual/kodi kodi-addons-meta"
 
 RRECOMMENDS_${PN} = "${@bb.utils.contains("MACHINE_FEATURES", "no-subssupport", "" , "enigma2-plugin-extensions-subssupport", d)}"
 
 SRCREV = "fb3546a8e5496ff3d8d9035eb10a876ef1e4b807"
-SRC_URI = "git://github.com/schleichdi2/kodiext.git \
-	file://advancedsettings.xml \
+SRC_URI = "git://github.com/oe-alliance/kodiext.git;protocol=https;branch=python3 \
+        file://advancedsettings.xml \
+        file://kodiext.patch \
         "
 
 S = "${WORKDIR}/git"
