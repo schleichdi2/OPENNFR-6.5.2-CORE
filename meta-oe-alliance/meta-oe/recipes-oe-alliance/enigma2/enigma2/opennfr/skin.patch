@@ -1,5 +1,5 @@
---- a/skin.py
-+++ b/skin.py
+--- a/lib/python/skin.py
++++ b/lib/python/skin.py
 @@ -1170,7 +1170,7 @@
  		screen.additionalWidgets.append(w)
  
