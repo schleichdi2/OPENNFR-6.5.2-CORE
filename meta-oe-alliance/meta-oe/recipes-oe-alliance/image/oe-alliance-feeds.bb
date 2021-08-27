@@ -47,7 +47,6 @@ RDEPENDS_${PN} = " \
     oe-alliance-branding-remote \
     exteplayer3 \
     eplayer5 \
-    enigma2-plugin-systemplugins-serviceapp \
     enigma2-plugin-extensions-moviemanager \
     enigma2-plugin-systemplugins-hrtunerproxy  \
     enigma2-plugin-extensions-xmodem  \
